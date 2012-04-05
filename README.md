@@ -1,6 +1,6 @@
 # Linebacker
 
-Drop in a script tag into your page to draw baselines on your page. Great for checking your vertical rhythm.
+Linebacker will pick out the line height of your page and draw ruled notepaper lines to show you where your baselines should be.
 
 ```html
 <script src="http://linebacker.herokuapp.com/rule" type="text/javascript" charset="utf-8"></script>
@@ -11,8 +11,6 @@ Activate with `linebacker.rule()`:
 ```html
 <button onclick="linebacker.rule()">Draw them lines</button>
 ```
-
-Linebacker will pick out the line height of your page and draw ruled notepaper lines to show you where your baselines should be.
 
 Built for Chrome, so your mileage may vary.
 
@@ -45,10 +43,10 @@ Start the server:
 
     $ node app.js
 
-Open http://localhost:3000/
+Open [http://localhost:3000/](http://localhost:3000/)
 
 ## Deploying on Heroku
 
     $ heroku create -s cedar
     $ heroku config:add NODE_ENV=production
-    $ heroku create -s cedar
+    $ git push heroku master
