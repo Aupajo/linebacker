@@ -36,6 +36,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/rule', function(req, res){
+  res.contentType("application/javascript")
   res.render('rule')
 });
 
