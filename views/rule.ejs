@@ -1,49 +1,67 @@
-window.onload = function() {
-  // Adjust this to tweak where the baseline is presented on the line of text
-  var BASELINE_OFFSET = 0;
-
-  // Whether to draw the canvas behind all other elements or in front
-  var RULE_BEHIND = true;
-
-  var body = document.getElementsByTagName('body')[0];
-  var computedStyle = getComputedStyle(body, '');
-
-  var fontSize = Number(computedStyle.fontSize.match(/(\d+)px/)[1]);
-  var lineHeight = fontSize;
-
-  if(computedStyle.lineHeight.match(/(\d+)px/)) {
-    lineHeight = Number(computedStyle.lineHeight.match(/(\d+)px/)[1]);
-  }
-
-  console.log('[Gridder] Font size:', fontSize + 'px, line height:', lineHeight + 'px');
-
-  // Set up the canvas to stretch across the page
-  var canvas    = document.createElement('canvas');
-  canvas.height = body.scrollHeight;
-  canvas.width  = body.scrollWidth; 
-  canvas.style.position = 'absolute';
-  canvas.style.top  = 0;
-  canvas.style.left = 0;
-
-  if(RULE_BEHIND) {
-    var firstElement = body.childNodes[0];
-    body.insertBefore(canvas, firstElement);
-  } else {
-    body.appendChild(canvas);
-  }
-
-  // Drawing settings
-  var ctx = canvas.getContext('2d');
-  ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-  var y = 0 + BASELINE_OFFSET;
-  var lineThickness = 1;
-  var step = lineHeight;
+linebacker = {
+  // Baseline offset tweak
+  baselineOffset: 0,
   
-  // Clear the canvas
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //Whether to draw the lines behind or in front of the page
+  behind: true,
+  
+  // Line thickness in pixels
+  lineThickness: 1,
+  
+  // Line style
+  lineStyle: "rgba(0, 0, 0, 0.1)",
+  
+  // Internal
+  canvas: null,
+  lineHeight: null,
+  
+  drawCanvas: function() {
+    if(this.canvas) return;
+    
+    var body = document.getElementsByTagName('body')[0];
+    var computedStyle = getComputedStyle(body, '');
 
-  // Rule the lines
-  while(y < canvas.height) {
-    ctx.fillRect(0, y += step, canvas.width, lineThickness);
+    var fontSize = Number(computedStyle.fontSize.match(/(\d+)px/)[1]);
+    this.lineHeight = fontSize;
+
+    if(computedStyle.lineHeight.match(/(\d+)px/)) {
+      this.lineHeight = Number(computedStyle.lineHeight.match(/(\d+)px/)[1]);
+    }
+    
+    // Set up the canvas to stretch across the page
+    this.canvas    = document.createElement('canvas');
+    this.canvas.height = body.scrollHeight;
+    this.canvas.width  = body.scrollWidth; 
+    this.canvas.style.position = 'absolute';
+    this.canvas.style.top  = 0;
+    this.canvas.style.left = 0;
+    
+     if(this.behind) {
+      // TODO: create a first element if none exists
+      var firstElement = body.childNodes[0];
+      body.insertBefore(this.canvas, firstElement);
+    } else {
+      body.appendChild(this.canvas);
+    }
+    
+    console.log('[Linebacker] Font size:', fontSize + 'px, line height:', this.lineHeight + 'px, drawing', (this.behind ? 'behind' : 'in front'));
+  },
+  
+  rule: function() {
+    this.drawCanvas();
+    
+    var ctx = this.canvas.getContext('2d');
+    ctx.fillStyle = this.lineStyle;
+  
+    // Clear the canvas
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // Rule the lines
+    var y = 0 + this.baselineOffset;
+    var step = this.lineHeight;
+    
+    while(y < this.canvas.height) {
+      ctx.fillRect(0, y += step, this.canvas.width, this.lineThickness);
+    }
   }
 };
