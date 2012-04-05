@@ -36,8 +36,13 @@ app.get('/', function(req, res){
 });
 
 app.get('/rule', function(req, res){
-  res.contentType("application/javascript")
-  res.render('rule')
+  res.contentType("application/javascript");
+  res.render('rule', {
+    baselineOffset: parseInt(req.param('offset')) || 0,
+    behind: (req.param('behind') != 'false'),
+    lineThickness: parseInt(req.param('thickness')) || 1,
+    lineOpacity: parseFloat(req.param('opacity')) || 0.1
+  });
 });
 
 

@@ -1,15 +1,15 @@
 linebacker = {
   // Baseline offset tweak
-  baselineOffset: 0,
+  baselineOffset: <%= baselineOffset %>,
   
   //Whether to draw the lines behind or in front of the page
-  behind: true,
+  behind: <%= behind %>,
   
   // Line thickness in pixels
-  lineThickness: 1,
+  lineThickness: <%= lineThickness %>,
   
   // Line style
-  lineStyle: "rgba(0, 0, 0, 0.1)",
+  lineStyle: "rgba(0, 0, 0, <%= lineOpacity %>)",
   
   // Internal
   canvas: null,
