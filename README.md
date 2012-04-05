@@ -1,6 +1,6 @@
 # Linebacker
 
-Drop in a script tag to draw baselines on your page. Great for checking your vertical rhythm.
+Drop in a script tag into your page to draw baselines on your page. Great for checking your vertical rhythm.
 
 ```html
 <script src="http://linebacker.herokuapp.com/rule" type="text/javascript" charset="utf-8"></script>
@@ -9,7 +9,7 @@ Drop in a script tag to draw baselines on your page. Great for checking your ver
 Activate with `linebacker.rule()`:
 
 ```html
-<button onclick="linebacker.rule(); return false">Draw them lines</button>
+<button onclick="linebacker.rule()">Draw them lines</button>
 ```
 
 Linebacker will pick out the line height of your page and draw ruled notepaper lines to show you where your baselines should be.
